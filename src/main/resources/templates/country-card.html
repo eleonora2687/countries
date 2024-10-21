@@ -34,6 +34,14 @@
                     <li th:each="capital : ${country.capitals}" th:text="${capital.name}">Capital Name</li>
                 </ul>
             </div>
+                <p><strong>Language/s:</strong></p>
+                    
+
+                <ul>
+                    <li th:each="language : ${country.languages}" th:text="${language.name}">Language Name</li>
+                </ul>
+            
+
         </div>
 
         <div class="card-footer bg-transparent mb-2">

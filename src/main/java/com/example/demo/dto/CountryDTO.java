@@ -1,7 +1,7 @@
-
 package com.example.demo.dto;
 
 import java.util.List;
+import java.util.Map;
 
 public class CountryDTO {
 
@@ -11,6 +11,7 @@ public class CountryDTO {
     private Integer area;
     private Integer population;
     private FlagsDTO flags;
+    private Map<String, String> languages; // Added languages field
 
     public NameDTO getName() {
         return this.name;
@@ -60,7 +61,13 @@ public class CountryDTO {
         this.flags = flags;
     }
 
-    
+    public Map<String, String> getLanguages() { // Added getter for languages
+        return languages;
+    }
+
+    public void setLanguages(Map<String, String> languages) { // Added setter for languages
+        this.languages = languages;
+    }
 
     public static class NameDTO {
         private String common;
@@ -89,10 +96,6 @@ public class CountryDTO {
             this.common = common;
             this.official = official;
         }
-
-        
-
-        
     }
 
     public static class FlagsDTO {
@@ -122,9 +125,5 @@ public class CountryDTO {
             this.png = png;
             this.svg = svg;
         }
-
-        
-
-        
     }
 }

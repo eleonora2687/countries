@@ -1,6 +1,9 @@
 package com.example.demo.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
@@ -8,6 +11,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -31,6 +37,14 @@ public class Country {
 
     @Embedded
     private Flags flags;
+
+    @ManyToMany
+    @JoinTable(
+            name = "country_languages",
+            joinColumns = @JoinColumn(name = "country_id"),
+            inverseJoinColumns = @JoinColumn(name = "language_id")
+    )
+    private Set<Language> languages = new HashSet<>(); // Initialize the Set
 
     public Long getId() {
         return id;
@@ -88,7 +102,27 @@ public class Country {
         this.flags = flags;
     }
 
+    public Set<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Set<Language> languageSet) {
+        this.languages = languageSet; // Set the languages
+    }
+
     public Country() {
+    }
+
+    // Constructor with parameters
+    public Country(Long id, List<Capital> capitals, String region, Integer area, Integer population, Name name, Flags flags, Set<Language> languages) {
+        this.id = id;
+        this.capitals = capitals;
+        this.region = region;
+        this.area = area;
+        this.population = population;
+        this.name = name;
+        this.flags = flags;
+        this.languages = languages; // Initialize languages in constructor
     }
 
     @Embeddable
@@ -150,17 +184,4 @@ public class Country {
             this.svg = svg;
         }
     }
-
-    public Country(Long id, List<Capital> capitals, String region, Integer area, Integer population, Name name,
-            Flags flags) {
-        this.id = id;
-        this.capitals = capitals;
-        this.region = region;
-        this.area = area;
-        this.population = population;
-        this.name = name;
-        this.flags = flags;
-        
-    }
-    
 }
