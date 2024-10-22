@@ -71,5 +71,21 @@ public class FavoriteController {
     }
 
 
+    @PostMapping("/remove")
+    public String removeFavorite(@RequestParam("countryId") Long countryId, Model model) {
+    Optional<Country> countryOptional = countryService.getCountryById(countryId);
+
+    if (countryOptional.isPresent()) {
+        favoriteService.removeFavorite(countryId);
+        model.addAttribute("message", "Country removed from favorites!");
+    } else {
+        model.addAttribute("error", "Country not found!");
+    }
+
+    return "redirect:/faves"; // Redirect back to the favorites page
+}
+
+
+
 
 }

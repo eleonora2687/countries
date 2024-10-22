@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 
     <div class="card" th:fragment="card(country)">
-        
         <div class="card-header bg-transparent">
             <h3 th:text="${country.id + '.'+' '+country.name.common}">Country Name</h3>
         </div>
@@ -34,14 +32,10 @@
                     <li th:each="capital : ${country.capitals}" th:text="${capital.name}">Capital Name</li>
                 </ul>
             </div>
-                <p><strong>Language/s:</strong></p>
-                    
-
-                <ul>
-                    <li th:each="language : ${country.languages}" th:text="${language.name}">Language Name</li>
-                </ul>
-            
-
+            <p><strong>Language/s:</strong></p>
+            <ul>
+                <li th:each="language : ${country.languages}" th:text="${language.name}">Language Name</li>
+            </ul>
         </div>
 
         <div class="card-footer bg-transparent mb-2">
@@ -54,9 +48,74 @@
             </form>
         </div>
     </div>
-    <script th:src="@{/js/scripts.js}"></script>
 
+    <script th:src="@{/js/scripts.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+   
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        document.querySelectorAll('.favorite-form').forEach(form => {
+            const countryId = form.dataset.countryId;
+            const button = form.querySelector('button');
+
+            if (favorites.includes(countryId)) {
+                button.classList.remove('btn-info');
+                button.classList.add('btn-warning');
+                button.textContent = 'Remove from Favorites';
+            } else {
+                button.classList.remove('btn-warning');
+                button.classList.add('btn-info');
+                button.textContent = 'Add to Favorites';
+            }
+        });
+    });
+
+    // Listen for form submit (favorite/unfavorite action)
+    document.querySelectorAll('.favorite-form').forEach(form => {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const countryId = form.dataset.countryId;
+            const button = form.querySelector('button');
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            if (favorites.includes(countryId)) {
+                // Remove from favorites
+                favorites = favorites.filter(id => id !== countryId);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+
+                button.classList.remove('btn-warning');
+                button.classList.add('btn-info');
+                button.textContent = 'Add to Favorites';
+            } else {
+                // Add to favorites
+                favorites.push(countryId);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+
+                button.classList.remove('btn-info');
+                button.classList.add('btn-warning');
+                button.textContent = 'Remove from Favorites';
+            }
+
+            // Optionally, send an AJAX request to update the server-side state
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form)
+            }).then(response => {
+                if (!response.ok) {
+                    console.error('Failed to update favorite status on the server');
+                }
+            }).catch(error => {
+                console.error('Error occurred:', error);
+            });
+        });
+    });
+
+    </script>
+
 </body>
 </html>
