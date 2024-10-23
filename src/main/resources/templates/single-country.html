@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    
+    <div class="single-country-card container">
+        <div class="col-md-8 order-2 order-md-1">
+            <h1 th:text="${country.name.common}"></h1>
+            <img th:src="${country.flags.svg}" alt="Flag of" th:alt="${country.name.common}" class="img-fluid w-50" /> <!-- Set width to 50% -->
+
+            <p>Capital: <span th:text="${country.capitals[0].name}"></span></p>
+            <p>Region: <span th:text="${country.region}"></span></p>
+            <p>Population: <span th:text="${country.population}"></span></p>
+        </div>
+    </div>
+</body>
+</html>

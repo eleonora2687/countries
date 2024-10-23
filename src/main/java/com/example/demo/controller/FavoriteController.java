@@ -39,18 +39,18 @@ public class FavoriteController {
     }
 
     @GetMapping("/faves")
-    public String getAllFavorites(Model model) {
-    List<Favorite> favorites = favoriteService.getAllFavorites(); 
-    model.addAttribute("favorites", favorites);
-    
-    System.out.println("Favorites: " + favorites);
-    
-    return "favorites"; 
+        public String getAllFavorites(Model model) {
+        List<Favorite> favorites = favoriteService.getAllFavorites(); 
+        model.addAttribute("favorites", favorites);
+        
+        System.out.println("Favorites: " + favorites);
+        
+        return "favorites"; 
     }
 
 
     @PostMapping("/toggleFavorite")
-    public String toggleFavorite(@RequestParam("countryId") Long countryId, Model model) {
+        public String toggleFavorite(@RequestParam("countryId") Long countryId, Model model) {
         Optional<Country> countryOptional = countryService.getCountryById(countryId);
 
         if (countryOptional.isPresent()) {
@@ -82,10 +82,8 @@ public class FavoriteController {
         model.addAttribute("error", "Country not found!");
     }
 
-    return "redirect:/faves"; // Redirect back to the favorites page
+    return "redirect:/faves"; 
 }
-
-
 
 
 }

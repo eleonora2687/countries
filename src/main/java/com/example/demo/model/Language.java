@@ -14,8 +14,8 @@ public class Language {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code;  // e.g., "fra"
-    private String name;  // e.g., "French"
+    private String code;  
+    private String name;  
 
     @ManyToMany(mappedBy = "languages")
     private Set<Country> countries = new HashSet<>();

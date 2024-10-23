@@ -1,9 +1,14 @@
 .country-card {
-    border: 1px solid black; /* Black border */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Padding inside the card */
-    margin-bottom: 5px; /* Space between cards */
-    background-color: #fff; /* Optional: Background color */
+    border: 1px solid black; 
+    border-radius: 10px; 
+    padding: 20px;
+    margin-bottom: 5px; 
+    background-color: #fff;
+    cursor: default; /* Set cursor to default */
+}
+
+.country-card:hover {
+    cursor: default; /* Keep cursor default on hover */
 }
 
 #backToTop {
@@ -12,5 +17,21 @@
     right: 10px;
     z-index: 1000;
 }
+
 .custom-navbar {
-  background-color: #dcdcdc; }
+    background-color: #dcdcdc; 
+}
+
+#all-countries-page .btn-warning {
+    color: white;
+}
+
+.country-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.single-country-card img {
+    max-width: 100%;  
+    height: auto;    
+}

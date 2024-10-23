@@ -113,7 +113,6 @@ public class Country {
     public Country() {
     }
 
-    // Constructor with parameters
     public Country(Long id, List<Capital> capitals, String region, Integer area, Integer population, Name name, Flags flags, Set<Language> languages) {
         this.id = id;
         this.capitals = capitals;
@@ -122,7 +121,7 @@ public class Country {
         this.population = population;
         this.name = name;
         this.flags = flags;
-        this.languages = languages; // Initialize languages in constructor
+        this.languages = languages; 
     }
 
     @Embeddable
